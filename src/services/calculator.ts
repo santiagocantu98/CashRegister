@@ -9,6 +9,10 @@ export class ChangeCalculator {
   }
 
   calculate(transaction: Transaction): ChangeResult[] {
+    if (transaction.owedCents < 0 || transaction.paidCents < 0) {
+      throw new Error(`Invalid transaction: amounts cannot be negative`);
+    }
+
     const changeInCents = transaction.paidCents - transaction.owedCents;
 
     if (changeInCents < 0) {
