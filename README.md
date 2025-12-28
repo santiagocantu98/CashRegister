@@ -119,6 +119,16 @@ npm test -- --coverage
 - Integration tests for README examples
 - Edge cases: exact payment, insufficient payment, invalid input, negative amounts
 
+## Error Handling
+
+| Input | Behavior |
+|-------|----------|
+| Invalid format (`abc,xyz`) | Line skipped, error logged to stderr |
+| Insufficient payment (`5.00,3.00`) | Error thrown with descriptive message |
+| Negative amounts (`-1.00,2.00`) | Error thrown: "amounts cannot be negative" |
+| Empty lines | Skipped silently |
+| Windows line endings (`\r\n`) | Supported |
+
 ## Technologies
 
 - TypeScript

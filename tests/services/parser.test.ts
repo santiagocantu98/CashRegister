@@ -76,6 +76,14 @@ describe('FileParser', () => {
       expect(result[0].owedCents).toBe(200);
       expect(result[0].paidCents).toBe(200);
     });
+
+    it('should handle Windows line endings (CRLF)', () => {
+      const result = parser.parseContent('2.12,3.00\r\n1.97,2.00\r\n3.33,5.00');
+      expect(result).toHaveLength(3);
+      expect(result[0]).toEqual({ owedCents: 212, paidCents: 300 });
+      expect(result[1]).toEqual({ owedCents: 197, paidCents: 200 });
+      expect(result[2]).toEqual({ owedCents: 333, paidCents: 500 });
+    });
   });
 });
 

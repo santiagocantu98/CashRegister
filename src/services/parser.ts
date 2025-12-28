@@ -8,7 +8,7 @@ export class FileParser {
   }
 
   parseContent(content: string): Transaction[] {
-    const lines = content.split('\n');
+    const lines = content.split(/\r?\n/);
     const transactions: Transaction[] = [];
 
     for (let i = 0; i < lines.length; i++) {
