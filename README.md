@@ -41,3 +41,86 @@ Here are a couple of thoughts about the domain that could influence your respons
 * What might happen if the client needs to change the random divisor?
 * What might happen if the client needs to add another special case (like the random twist)?
 * What might happen if sales closes a new client in France?
+
+---
+
+# Solution
+
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Run with sample input
+npm run dev -- input.txt
+
+# Run tests
+npm test
+```
+
+## Usage
+
+```bash
+npm run dev -- <input-file>
+```
+
+**Example:**
+```bash
+$ npm run dev -- input.txt
+3 quarters,1 dime,3 pennies
+3 pennies
+1 dollar,2 quarters,4 nickels,7 pennies
+```
+
+## Project Structure
+
+```
+src/
+├── config/           # Denominations and app configuration
+├── strategies/       # Change calculation algorithms
+│   ├── minimal.strategy.ts   # Greedy algorithm (minimum coins)
+│   └── random.strategy.ts    # Random valid distribution
+├── services/
+│   ├── calculator.ts   # Orchestrates strategy selection
+│   ├── parser.ts       # Parses input file
+│   └── formatter.ts    # Formats output string
+└── index.ts          # CLI entry point
+```
+
+## Design Decisions
+
+### Addressing "Things To Consider"
+
+| Question | Solution |
+|----------|----------|
+| Change the random divisor? | `randomDivisor` is configurable in `config/index.ts` |
+| Add another special case? | Implement a new `ChangeStrategy` and update the factory logic in `calculator.ts` |
+| Client in France? | Add new denominations in `config/` — the algorithms work with any denomination set |
+
+### Technical Decisions
+
+- **Integer arithmetic**: All calculations use cents (integers) to avoid floating-point precision issues
+- **Strategy Pattern**: Allows swapping change algorithms without modifying core logic
+- **No half-dollar**: Excluded to match the expected output in the README examples
+
+## Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run with coverage
+npm test -- --coverage
+```
+
+**Test coverage:**
+- Unit tests for each strategy, service, and utility
+- Integration tests for README examples
+- Edge cases: exact payment, insufficient payment, invalid input, negative amounts
+
+## Technologies
+
+- TypeScript
+- Node.js
+- Jest (testing)
