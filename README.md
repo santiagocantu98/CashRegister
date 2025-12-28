@@ -70,7 +70,7 @@ npm run dev -- <input-file>
 $ npm run dev -- input.txt
 3 quarters,1 dime,3 pennies
 3 pennies
-1 dollar,2 quarters,4 nickels,7 pennies
+1 dollar,1 quarter,4 dimes,2 pennies
 ```
 
 ## Project Structure
